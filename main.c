@@ -152,13 +152,6 @@ void test_isSymmetricMatrix() {
     freeMemMatrix(m);
 }
 
-int getSum(int *a, int n) {
-    int sum = 0;
-    for (int i = 0; i < n; i++)
-        sum += a[i];
-    return sum;
-}
-
 void test_transposeSquareMatrix() {
     matrix m = createMatrixFromArray(
             (int[]) {
@@ -282,20 +275,8 @@ void test_matrix() {
 //
 
 //1
-void swapsRowsWhithMinAndMaxElement() {
-    matrix m = createMatrixFromArray(
-            (int[]) {
-                    29, 3,
-                    9, 6,
-                    16, 0,
-                    3, 6,
-
-            }, 4, 2
-    );
+void swapsRowsWhithMinAndMaxElement(matrix m) {
     swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
-    outputMatrix(m);
-
-    freeMemMatrix(m);
 }
 
 void test_swapsRowsWhithMinAndMaxElement() {
@@ -308,7 +289,7 @@ void test_swapsRowsWhithMinAndMaxElement() {
 
             }, 4, 2
     );
-    swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
+    swapsRowsWhithMinAndMaxElement(m);
     matrix newM = createMatrixFromArray(
             (int[]) {
                     16, 0,
@@ -324,19 +305,53 @@ void test_swapsRowsWhithMinAndMaxElement() {
     freeMemMatrix(newM);
 }
 
-void task1() {
-    swapsRowsWhithMinAndMaxElement();
-    test_swapsRowsWhithMinAndMaxElement();
+
+//2
+int getMax(int *a, int n) {
+    int max = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+    return max;
 }
 
+void sortsStringsInNonDescendingOrderOfLargeStringElements(matrix m) {
+    insertionSortRowsMatrixByRowCriteria(m, getMax);
+}
 
-void task() {
-    task1();
+void test_sortsStringsInNonDescendingOrderOfLargeStringElements() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    29, 3,
+                    9, 6,
+                    16, 0,
+                    3, 6,
+
+            }, 4, 2
+    );
+    sortsStringsInNonDescendingOrderOfLargeStringElements(m);
+    matrix newM = createMatrixFromArray(
+            (int[]) {
+                    3, 6,
+                    9, 6,
+                    16, 0,
+                    29, 3,
+            }, 4, 2
+    );
+    assert(areTwoMatricesEqual(m, newM));
+
+    freeMemMatrix(m);
+    freeMemMatrix(newM);
+}
+
+void test() {
+    test_swapsRowsWhithMinAndMaxElement();
+    test_sortsStringsInNonDescendingOrderOfLargeStringElements();
 }
 
 int main() {
-    test_matrix();
-    task();
+    //test_matrix();
+    test();
 
     return 0;
 }

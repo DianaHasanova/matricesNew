@@ -82,5 +82,7 @@ matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 //озвращает указатель на нулевую матрицу массива из nMatrices матриц, размещенных в динамической памяти , построенных из элементов массива value
 matrix *creatArrayOfMatrixFromArray(const int *value, int nMatrices, int nRows, int nCols);
 
+//возвращает сумму элементов n массива a
+int getSum(int *a, int n);
 
 #endif //MATRICESNEW_MATRIX_H
