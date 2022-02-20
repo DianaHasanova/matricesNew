@@ -275,25 +275,69 @@ void test_matrix() {
     test_insertionSortRowsMatrixByRowCriteria();
     test_insertionSortColsMatrixByRowCriteria();
 }
+//
 
+// Задачи
+
+//
+
+//1
+void swapsRowsWhithMinAndMaxElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    29, 3,
+                    9, 6,
+                    16, 0,
+                    3, 6,
+
+            }, 4, 2
+    );
+    swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
+    outputMatrix(m);
+
+    freeMemMatrix(m);
+}
+
+void test_swapsRowsWhithMinAndMaxElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    29, 3,
+                    9, 6,
+                    16, 0,
+                    3, 6,
+
+            }, 4, 2
+    );
+    swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
+    matrix newM = createMatrixFromArray(
+            (int[]) {
+                    16, 0,
+                    9, 6,
+                    29, 3,
+                    3, 6,
+
+            }, 4, 2
+    );
+    assert(areTwoMatricesEqual(m, newM));
+
+    freeMemMatrix(m);
+    freeMemMatrix(newM);
+}
+
+void task1() {
+    swapsRowsWhithMinAndMaxElement();
+    test_swapsRowsWhithMinAndMaxElement();
+}
+
+
+void task() {
+    task1();
+}
 
 int main() {
     test_matrix();
-    /*   matrix m = createMatrixFromArray(
-               (int[]) {
-                       29, 3, 9, 6,
-                       0, 16, 3, 6,
+    task();
 
-               }, 2, 4
-       );
-
-       // swap(&m.values[2][1], &m.values[3][0]);
-       //printf("%d",)
-       insertionSortColsMatrixByRowCriteria(m, getSum);
-
-       outputMatrix(m);
-       freeMemMatrix(m);
-   */
     return 0;
 }
 

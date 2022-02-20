@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-D:/matricesNew/libs/data_structures/matrix/matrix.c
-matrix.h
-D:/matricesNew/libs/data_structures/matrix/matrix.h
-malloc.h
-D:/matricesNew/libs/data_structures/matrix/malloc.h
-stdbool.h
-D:/matricesNew/libs/data_structures/matrix/stdbool.h
-stdio.h
-D:/matricesNew/libs/data_structures/matrix/stdio.h
-
 D:/matricesNew/libs/data_structures/matrix/matrix.h
 stdbool.h
 D:/matricesNew/libs/data_structures/matrix/stdbool.h
