@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 
+/*
 void test_swapRows() {
     matrix m = createMatrixFromArray(
             (int[]) {
@@ -91,7 +92,7 @@ void test_areTwoMatricesEqual() {
     freeMemMatrix(m2);
 }
 
-void isEMatrix_notSquare() {
+void test_isEMatrix_notSquare() {
     matrix m = createMatrixFromArray(
             (int[]) {
                     1, 0, 0,
@@ -103,7 +104,7 @@ void isEMatrix_notSquare() {
     freeMemMatrix(m);
 }
 
-void isEMatrix_squareUnit() {
+void test_isEMatrix_squareUnit() {
     matrix m = createMatrixFromArray(
             (int[]) {
                     1, 0,
@@ -115,7 +116,7 @@ void isEMatrix_squareUnit() {
     freeMemMatrix(m);
 }
 
-void isEMatrix_squareIsNotASingle() {
+void test_isEMatrix_squareIsNotASingle() {
     matrix m = createMatrixFromArray(
             (int[]) {
                     1, 0,
@@ -258,9 +259,9 @@ void test_matrix() {
     test_isNotSquareMatrix();
     test_areTwoMatricesEqual_differentDimensions();
     test_areTwoMatricesEqual();
-    isEMatrix_notSquare();
-    isEMatrix_squareUnit();
-    isEMatrix_squareIsNotASingle();
+    test_isEMatrix_notSquare();
+    test_isEMatrix_squareUnit();
+    test_isEMatrix_squareIsNotASingle();
     test_isNotSymmetricMatrix();
     test_isSymmetricMatrix();
     test_transposeSquareMatrix();
@@ -269,6 +270,7 @@ void test_matrix() {
     test_insertionSortRowsMatrixByRowCriteria();
     test_insertionSortColsMatrixByRowCriteria();
 }
+*/
 //
 
 // Задачи
@@ -539,6 +541,34 @@ void test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows() {
     freeMemMatrix(mNew);
 }
 
+
+//6
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    return isEMatrix(mulMatrices(m1, m2)) && isEMatrix(mulMatrices(m1, m2)) && isSquareMatrix(m1) && isSquareMatrix(m2);
+}
+
+void test_isMutuallyInverseMatrices() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    2, -5,
+                    1, -3
+            }, 2, 2
+    );
+    matrix mNew = createMatrixFromArray(
+            (int[]) {
+                    3, -5,
+                    1, -2
+            }, 2, 2
+    );
+
+    assert(isMutuallyInverseMatrices(m, mNew));
+
+    freeMemMatrix(m);
+    freeMemMatrix(mNew);
+}
+
+
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -546,9 +576,10 @@ void test() {
     //test_mulMatrices();
     //test_getSquareOfMatrixIfSymmetric_isSymmetric();
     //test_getSquareOfMatrixIfSymmetric_isNotSymmetric();
-    test_isUnique();
-    test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows();
-    test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
+    // test_isUnique();
+    //test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows();
+    //test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
+    test_isMutuallyInverseMatrices();
 }
 
 int main() {
