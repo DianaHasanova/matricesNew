@@ -1,5 +1,6 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include <assert.h>
+#include <stdio.h>
 
 void test_swapRows() {
     matrix m = createMatrixFromArray(
@@ -465,14 +466,89 @@ void test_getSquareOfMatrixIfSymmetric_isNotSymmetric() {
     freeMemMatrix(mNew);
 }
 
+
+//5
+bool isUnique(int *a, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (a[i] == a[j])
+                return true;
+    return false;
+}
+
+void test_isUnique() {
+    int a[6] = {2, 5, 6, 7, 8, 9};
+    int b[3] = {6, 6, 7};
+    int c[4] = {1, 0, 9, 1};
+    assert(isUnique(a, 6));
+    assert(!isUnique(b, 3));
+    assert(!isUnique(c, 4));
+}
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix m) {
+    int sumOfRows[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        sumOfRows[i] = getSum(m.values[i], m.nCols);
+    if (!isUnique(sumOfRows, m.nRows))
+        transposeSquareMatrix(m);
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 4, 6,
+                    4, -2, 1,
+                    6, 0, 3,
+            }, 3, 3
+    );
+    transposeIfMatrixHasNotEqualSumOfRows(m);
+    matrix mNew = createMatrixFromArray(
+            (int[]) {
+                    -1, 4, 6,
+                    4, -2, 1,
+                    6, 0, 3,
+            }, 3, 3
+    );
+
+    assert(areTwoMatricesEqual(m, mNew));
+
+    freeMemMatrix(m);
+    freeMemMatrix(mNew);
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, -7, 8,
+                    4, -2, 1,
+                    9, 0, -16
+            }, 3, 3
+    );
+    transposeIfMatrixHasNotEqualSumOfRows(m);
+    matrix mNew = createMatrixFromArray(
+            (int[]) {
+                    3, 4, 9,
+                    -7, -2, 0,
+                    8, 1, -16
+            }, 3, 3
+    );
+
+    assert(areTwoMatricesEqual(m, mNew));
+
+    freeMemMatrix(m);
+    freeMemMatrix(mNew);
+}
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
     //test_sortsColsByMinElement();
     //test_mulMatrices();
-    test_getSquareOfMatrixIfSymmetric_isSymmetric();
-    test_getSquareOfMatrixIfSymmetric_isNotSymmetric();
-
+    //test_getSquareOfMatrixIfSymmetric_isSymmetric();
+    //test_getSquareOfMatrixIfSymmetric_isNotSymmetric();
+    test_isUnique();
+    test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows();
+    test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
 }
 
 int main() {

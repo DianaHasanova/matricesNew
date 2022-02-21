@@ -15,4 +15,6 @@ libs/data_structures/matrix/matrix.h
 D:/matricesNew/libs/data_structures/matrix/matrix.h
 assert.h
 -
+stdio.h
+-
 
