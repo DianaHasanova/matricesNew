@@ -315,11 +315,11 @@ int getMax(int *a, int n) {
     return max;
 }
 
-void sortsStringsInNonDescendingOrderOfLargeStringElements(matrix m) {
+void sortsRowsByMinElement(matrix m) {
     insertionSortRowsMatrixByRowCriteria(m, getMax);
 }
 
-void test_sortsStringsInNonDescendingOrderOfLargeStringElements() {
+void test_sortsRowsByMinElement() {
     matrix m = createMatrixFromArray(
             (int[]) {
                     29, 3,
@@ -329,7 +329,7 @@ void test_sortsStringsInNonDescendingOrderOfLargeStringElements() {
 
             }, 4, 2
     );
-    sortsStringsInNonDescendingOrderOfLargeStringElements(m);
+    sortsRowsByMinElement(m);
     matrix newM = createMatrixFromArray(
             (int[]) {
                     3, 6,
@@ -344,9 +344,47 @@ void test_sortsStringsInNonDescendingOrderOfLargeStringElements() {
     freeMemMatrix(newM);
 }
 
+
+//3
+int getMin(int *a, int n) {
+    int min = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] < min)
+            min = a[i];
+    return min;
+}
+
+void sortsColsByMinElement(matrix m) {
+    insertionSortColsMatrixByRowCriteria(m, getMin);
+}
+
+void test_sortsColsByMinElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 2,
+                    2, 5, 1,
+                    6, 1, 4,
+
+            }, 3, 3
+    );
+    sortsColsByMinElement(m);
+    matrix newM = createMatrixFromArray(
+            (int[]) {
+                    5, 2, 3,
+                    5, 1, 2,
+                    1, 4, 6,
+            }, 3, 3
+    );
+    assert(areTwoMatricesEqual(m, newM));
+
+    freeMemMatrix(m);
+    freeMemMatrix(newM);
+}
+
 void test() {
-    test_swapsRowsWhithMinAndMaxElement();
-    test_sortsStringsInNonDescendingOrderOfLargeStringElements();
+    // test_swapsRowsWhithMinAndMaxElement();
+    //test_sortsRowsByMinElement();
+    test_sortsColsByMinElement();
 }
 
 int main() {
