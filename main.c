@@ -381,10 +381,98 @@ void test_sortsColsByMinElement() {
     freeMemMatrix(newM);
 }
 
+
+//4
+matrix mulMatrices(matrix m1, matrix m2) {
+    matrix m3 = createMatrixFromArray((int[]) {0,}, m1.nRows, m2.nCols);
+    for (int i = 0; i < m1.nRows; i++)
+        for (int j = 0; j < m2.nCols; j++) {
+            m3.values[i][j] = 0;
+            for (int k = 0; k < m1.nCols; k++) {
+                m3.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    return m3;
+}
+
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if (isSymmetricMatrix(*m))
+        *m = mulMatrices(*m, *m);
+}
+
+void test_mulMatrices() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 4,
+                    0, -2,
+            }, 2, 2
+    );
+    matrix mNew = createMatrixFromArray(
+            (int[]) {
+                    1, -12,
+                    0, 4,
+            }, 2, 2
+    );
+    assert(areTwoMatricesEqual(mulMatrices(m, m), mNew));
+
+    freeMemMatrix(m);
+    freeMemMatrix(mNew);
+}
+
+void test_getSquareOfMatrixIfSymmetric_isSymmetric() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 4, 6,
+                    4, -2, 0,
+                    6, 0, 5,
+            }, 3, 3
+    );
+    getSquareOfMatrixIfSymmetric(&m);
+    matrix mNew = createMatrixFromArray(
+            (int[]) {
+                    53, -12, 24,
+                    -12, 20, 24,
+                    24, 24, 61,
+            }, 3, 3
+    );
+
+    assert(areTwoMatricesEqual(m, mNew));
+
+    freeMemMatrix(m);
+    freeMemMatrix(mNew);
+}
+
+void test_getSquareOfMatrixIfSymmetric_isNotSymmetric() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 4, 6,
+                    4, -2, 1,
+                    6, 0, 5,
+            }, 3, 3
+    );
+    getSquareOfMatrixIfSymmetric(&m);
+    matrix mNew = createMatrixFromArray(
+            (int[]) {
+                    -1, 4, 6,
+                    4, -2, 1,
+                    6, 0, 5,
+            }, 3, 3
+    );
+
+    assert(areTwoMatricesEqual(m, mNew));
+
+    freeMemMatrix(m);
+    freeMemMatrix(mNew);
+}
+
 void test() {
-    // test_swapsRowsWhithMinAndMaxElement();
+    //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
-    test_sortsColsByMinElement();
+    //test_sortsColsByMinElement();
+    //test_mulMatrices();
+    test_getSquareOfMatrixIfSymmetric_isSymmetric();
+    test_getSquareOfMatrixIfSymmetric_isNotSymmetric();
+
 }
 
 int main() {
