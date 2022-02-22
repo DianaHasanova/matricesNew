@@ -13,6 +13,12 @@ void swap(int *a, int *b) {
     *b = t;
 }
 
+void swapf(float *a, float *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)

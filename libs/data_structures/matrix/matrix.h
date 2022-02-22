@@ -85,4 +85,8 @@ matrix *creatArrayOfMatrixFromArray(const int *value, int nMatrices, int nRows, 
 //возвращает сумму элементов n массива a
 int getSum(int *a, int n);
 
+void swap(int *a, int *b);
+
+void swapf(float *a, float *b);
+
 #endif //MATRICESNEW_MATRIX_H

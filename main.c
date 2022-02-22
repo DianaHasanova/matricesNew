@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <limits.h>
+#include <math.h>
 
 /*
 void test_swapRows() {
@@ -656,6 +657,53 @@ void test_getMinInArea_2() {
     freeMemMatrix(m);
 }
 
+
+//9
+float getDistance(int *a, int n) {
+    long long sum = 0;
+    for (int i = 0; i < n; i++)
+        sum += a[i] * a[i];
+    return sqrt(sum);
+}
+
+void sortByDistances(matrix m) {
+    float criteriaRows[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        criteriaRows[i] = getDistance(m.values[i], m.nCols);
+    for (int i = 0; i < m.nRows - 1; i++) {
+        int minPos = i;
+        for (int j = i + 1; j < m.nRows; j++)
+            if (criteriaRows[j] < criteriaRows[minPos])
+                minPos = j;
+        swapf(&criteriaRows[i], &criteriaRows[minPos]);
+        swapRows(m, i, minPos);
+    }
+}
+
+void test_sortByDistances() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    7, 12,
+                    6, 8,
+                    9, 2
+            }, 3, 2
+    );
+    matrix newM = createMatrixFromArray(
+            (int[]) {
+                    9, 2,
+                    6, 8,
+                    7, 12,
+            }, 3, 2
+    );
+
+    sortByDistances(m);
+    assert(areTwoMatricesEqual(m, newM));
+
+    freeMemMatrix(m);
+    freeMemMatrix(newM);
+}
+
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -668,8 +716,9 @@ void test() {
     //test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
     // test_isMutuallyInverseMatrices();
     //test_findSumOfMaxesOfPseudoDiagonal();
-    test_getMinInArea_1();
-    test_getMinInArea_2();
+    //test_getMinInArea_1();
+    //test_getMinInArea_2();
+    test_sortByDistances();
 }
 
 int main() {
