@@ -1,6 +1,7 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include <assert.h>
 #include <stdio.h>
+#include <limits.h>
 
 /*
 void test_swapRows() {
@@ -568,6 +569,40 @@ void test_isMutuallyInverseMatrices() {
 }
 
 
+//7
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    long long sumOfMaxesOfPseudoDiagonal = 0;
+    int r = m.nRows - 1;
+    int arraySize = m.nRows + m.nCols - 1;
+    int a[arraySize];
+    for (int i = 0; i < arraySize; i++)
+        a[i] = INT_MIN;
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = 0; j < m.nCols; j++)
+            a[j - i + r] = max(m.values[i][j], a[j - i + r]);
+    for (int i = 0; i < arraySize; i++)
+        sumOfMaxesOfPseudoDiagonal += a[i];
+    return sumOfMaxesOfPseudoDiagonal - a[r];
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 5, 4,
+                    1, 3, 6, 3,
+                    3, 2, 1, 2
+            }, 3, 4
+    );
+
+
+    assert(findSumOfMaxesOfPseudoDiagonal(m) == 20);
+
+    freeMemMatrix(m);
+}
 
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
@@ -579,7 +614,8 @@ void test() {
     // test_isUnique();
     //test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows();
     //test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
-    test_isMutuallyInverseMatrices();
+    // test_isMutuallyInverseMatrices();
+    test_findSumOfMaxesOfPseudoDiagonal();
 }
 
 int main() {
