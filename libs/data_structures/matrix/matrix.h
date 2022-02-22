@@ -89,4 +89,6 @@ void swap(int *a, int *b);
 
 void swapf(float *a, float *b);
 
+matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows, int nCols);
+
 #endif //MATRICESNEW_MATRIX_H
