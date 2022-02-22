@@ -219,3 +219,11 @@ matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows
                 matrices[k].values[i][j] = values[l++];
     return matrices;
 }
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+
+
+

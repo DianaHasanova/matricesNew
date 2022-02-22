@@ -91,4 +91,7 @@ void swapf(float *a, float *b);
 
 matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices, int nRows, int nCols);
 
+int max(int a, int b);
+
+
 #endif //MATRICESNEW_MATRIX_H

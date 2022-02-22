@@ -572,10 +572,6 @@ void test_isMutuallyInverseMatrices() {
 
 
 //7
-int max(int a, int b) {
-    return a > b ? a : b;
-}
-
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
     long long sumOfMaxesOfPseudoDiagonal = 0;
     int r = m.nRows - 1;
@@ -946,6 +942,44 @@ void test_countZeroRows() {
     freeMemMatrix(m);
 }
 
+
+//15
+int getALargeValueModuloTheElement(matrix m) {
+    int norma = 0;
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = 0; j < m.nCols; j++)
+            norma = max(norma, abs(m.values[i][j]));
+    return norma;
+}
+
+void printMatrixWithMinFromMaxModuloTheElement(matrix *ms, int nMatrix) {
+    int a[nMatrix];
+    int minModuloTheElement = INT_MAX;
+    for (int i = 0; i < nMatrix; i++) {
+        int maxModuloElementsFromMatrix = getALargeValueModuloTheElement(ms[i]);
+        a[i] = maxModuloElementsFromMatrix;
+        minModuloTheElement = min(minModuloTheElement, maxModuloElementsFromMatrix);
+    }
+    for (int i = 0; i < nMatrix; i++) {
+        if (a[i] == minModuloTheElement)
+            outputMatrix(ms[i]);
+    }
+}
+
+
+void test_getALargeValueModuloTheElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 2,
+                    4, -5
+            }, 2, 2
+    );
+
+    assert(getALargeValueModuloTheElement(m) == 5);
+
+    freeMemMatrix(m);
+}
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -967,26 +1001,30 @@ void test() {
     // test_countEqClassesByRowsSum();
     //test_countNonDescendingRowsMatrices_1();
     //test_countNonDescendingRowsMatrices_2();
-    test_countZeroRows();
+    //test_countZeroRows();
+    test_getALargeValueModuloTheElement();
 }
 
 int main() {
     //test_matrix();
-    test();
+    //test();
+
     matrix *ms = createArrayOfMatrixFromArray(
             (int[]) {
-                    1,
-                    9,
+                    1, 9,
 
                     22, 0,
 
                     0, 5,
+
                     14, 15,
-                    1, 0
-            }, 5, 2, 1
+
+                    6, 0
+            }, 5, 1, 2
     );
-    printMatrixWithMaxZeroRows(ms, 5);
+    printMatrixWithMinFromMaxModuloTheElement(ms, 5);
     freeMemMatrices(ms, 2);
+
     return 0;
 }
 
