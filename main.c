@@ -741,6 +741,64 @@ void test_getNSpecialElement() {
     freeMemMatrix(m);
 }
 
+
+//12
+void swapPenultimateRow(matrix m) {
+    if (m.nRows != m.nCols) {
+        printf("matrix is not square");
+        return;
+    }
+    int PenultimateRow = m.nCols - 2;
+    int firstColMinElements = getMinValuePos(m).colIndex;
+    for (int i = m.nRows - 1; i > -1; i--)
+        m.values[PenultimateRow][i] = m.values[i][firstColMinElements];
+}
+
+void test_swapPenultimateRow_1() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 1
+            }, 3, 3
+    );
+    swapPenultimateRow(m);
+    matrix newM = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    1, 4, 7,
+                    7, 8, 1
+            }, 3, 3
+    );
+
+    assert(areTwoMatricesEqual(m, newM));
+
+    freeMemMatrix(m);
+    freeMemMatrix(newM);
+}
+
+void test_swapPenultimateRow_2() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2,
+                    4, 5
+            }, 2, 2
+    );
+    swapPenultimateRow(m);
+    matrix newM = createMatrixFromArray(
+            (int[]) {
+                    1, 4,
+                    4, 5
+            }, 2, 2
+    );
+
+    assert(areTwoMatricesEqual(m, newM));
+
+    freeMemMatrix(m);
+    freeMemMatrix(newM);
+}
+
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -756,7 +814,9 @@ void test() {
     //test_getMinInArea_1();
     //test_getMinInArea_2();
     //test_sortByDistances();
-    test_getNSpecialElement();
+    // test_getNSpecialElement();
+    test_swapPenultimateRow_1();
+    test_swapPenultimateRow_2();
 }
 
 int main() {
