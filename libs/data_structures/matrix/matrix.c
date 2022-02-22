@@ -41,7 +41,7 @@ void freeMemMatrix(matrix m) {
 
 void freeMemMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; i++)
-        freeMemMatrix(*ms);
+        freeMemMatrix(ms[i]);
 }
 
 void inputMatrix(matrix m) {

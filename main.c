@@ -901,6 +901,51 @@ void test_countNonDescendingRowsMatrices_2() {
     freeMemMatrices(ms, 2);
 }
 
+
+//14
+int countZeroRows(matrix m) {
+    int countRows = 0;
+    for (int i = 0; i < m.nRows; i++) {
+        int r = 0;
+        for (int j = 0; j < m.nCols; j++)
+            if (m.values[i][j] != 0)
+                r = 1;
+        if (r == 0)
+            countRows++;
+    }
+    return countRows;
+}
+
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int a[nMatrix];
+    int maxCountZero = 0;
+    for (int i = 0; i < nMatrix; i++) {
+        int countZero = countZeroRows(ms[i]);
+        a[i] = countZero;
+        maxCountZero = max(maxCountZero, countZero);
+    }
+    for (int i = 0; i < nMatrix; i++) {
+        if (a[i] == maxCountZero)
+            outputMatrix(ms[i]);
+    }
+}
+
+void test_countZeroRows() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0,
+                    3, 1,
+                    0, 0,
+                    0, 7,
+                    0, 0
+            }, 5, 2
+    );
+
+    assert(countZeroRows(m) == 2);
+
+    freeMemMatrix(m);
+}
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -920,14 +965,28 @@ void test() {
     // test_swapPenultimateRow_1();
     // test_swapPenultimateRow_2();
     // test_countEqClassesByRowsSum();
-    test_countNonDescendingRowsMatrices_1();
-    test_countNonDescendingRowsMatrices_2();
+    //test_countNonDescendingRowsMatrices_1();
+    //test_countNonDescendingRowsMatrices_2();
+    test_countZeroRows();
 }
 
 int main() {
     //test_matrix();
     test();
+    matrix *ms = createArrayOfMatrixFromArray(
+            (int[]) {
+                    1,
+                    9,
 
+                    22, 0,
+
+                    0, 5,
+                    14, 15,
+                    1, 0
+            }, 5, 2, 1
+    );
+    printMatrixWithMaxZeroRows(ms, 5);
+    freeMemMatrices(ms, 2);
     return 0;
 }
 
