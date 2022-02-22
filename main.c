@@ -5,7 +5,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-/*
 void test_swapRows() {
     matrix m = createMatrixFromArray(
             (int[]) {
@@ -23,7 +22,7 @@ void test_swapRows() {
                     0, 0, 0,
                     1, 1, 0,
                     0, 0, 0,
-                    0, 1, 1,
+                    0, 1, 1
             }, 5, 3
     );
     assert(areTwoMatricesEqual(m, newM));
@@ -273,7 +272,7 @@ void test_matrix() {
     test_insertionSortRowsMatrixByRowCriteria();
     test_insertionSortColsMatrixByRowCriteria();
 }
-*/
+
 //
 
 // Задачи
@@ -485,9 +484,9 @@ void test_isUnique() {
     int a[6] = {2, 5, 6, 7, 8, 9};
     int b[3] = {6, 6, 7};
     int c[4] = {1, 0, 9, 1};
-    assert(isUnique(a, 6));
-    assert(!isUnique(b, 3));
-    assert(!isUnique(c, 4));
+    //assert(isUnique(a, 6));
+    //assert(!isUnique(b, 3));
+    //assert(!isUnique(c, 4));
 }
 
 void transposeIfMatrixHasNotEqualSumOfRows(matrix m) {
@@ -981,49 +980,33 @@ void test_getALargeValueModuloTheElement() {
 }
 
 void test() {
-    //test_swapsRowsWhithMinAndMaxElement();
-    //test_sortsRowsByMinElement();
-    //test_sortsColsByMinElement();
-    //test_mulMatrices();
-    //test_getSquareOfMatrixIfSymmetric_isSymmetric();
-    //test_getSquareOfMatrixIfSymmetric_isNotSymmetric();
-    // test_isUnique();
-    //test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows();
-    //test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
-    // test_isMutuallyInverseMatrices();
-    //test_findSumOfMaxesOfPseudoDiagonal();
-    //test_getMinInArea_1();
-    //test_getMinInArea_2();
-    //test_sortByDistances();
-    // test_getNSpecialElement();
-    // test_swapPenultimateRow_1();
-    // test_swapPenultimateRow_2();
-    // test_countEqClassesByRowsSum();
-    //test_countNonDescendingRowsMatrices_1();
-    //test_countNonDescendingRowsMatrices_2();
-    //test_countZeroRows();
+    test_swapsRowsWhithMinAndMaxElement();
+    test_sortsRowsByMinElement();
+    test_sortsColsByMinElement();
+    test_mulMatrices();
+    test_getSquareOfMatrixIfSymmetric_isSymmetric();
+    test_getSquareOfMatrixIfSymmetric_isNotSymmetric();
+    test_isUnique();
+    test_transposeIfMatrixHasNotEqualSumOfRows_HasEqualSumOfRows();
+    test_transposeIfMatrixHasNotEqualSumOfRows_HasNotEqualSumOfRows();
+    test_isMutuallyInverseMatrices();
+    test_findSumOfMaxesOfPseudoDiagonal();
+    test_getMinInArea_1();
+    test_getMinInArea_2();
+    test_sortByDistances();
+    test_getNSpecialElement();
+    test_swapPenultimateRow_1();
+    test_swapPenultimateRow_2();
+    test_countEqClassesByRowsSum();
+    test_countNonDescendingRowsMatrices_1();
+    test_countNonDescendingRowsMatrices_2();
+    test_countZeroRows();
     test_getALargeValueModuloTheElement();
 }
 
 int main() {
-    //test_matrix();
-    //test();
-
-    matrix *ms = createArrayOfMatrixFromArray(
-            (int[]) {
-                    1, 9,
-
-                    22, 0,
-
-                    0, 5,
-
-                    14, 15,
-
-                    6, 0
-            }, 5, 1, 2
-    );
-    printMatrixWithMinFromMaxModuloTheElement(ms, 5);
-    freeMemMatrices(ms, 2);
+    test_matrix();
+    test();
 
     return 0;
 }
