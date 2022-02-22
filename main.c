@@ -704,6 +704,43 @@ void test_sortByDistances() {
 }
 
 
+//10
+int cmp_long_long(const void *pa, const void *pb) {}
+
+int countNUnique(long long *a, int n) {}
+
+int countEqClassesByRowsSum(matrix m) {}
+
+
+//11
+int getNSpecialElement(matrix m) {
+    int k = 0;
+    for (int j = 0; j < m.nCols; j++) {
+        int maxElementCols = INT_MIN;
+        long long sumOfSquaresOfColElements = 0;
+        for (int i = 0; i < m.nRows; i++) {
+            sumOfSquaresOfColElements += m.values[i][j];
+            maxElementCols = max(maxElementCols, m.values[i][j]);
+        }
+        if (2 * maxElementCols > sumOfSquaresOfColElements)
+            k++;
+    }
+    return k;
+}
+
+void test_getNSpecialElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 7,
+                    12, 2, 1, 2
+            }, 3, 4
+    );
+    assert(getNSpecialElement(m) == 2);
+
+    freeMemMatrix(m);
+}
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -718,7 +755,8 @@ void test() {
     //test_findSumOfMaxesOfPseudoDiagonal();
     //test_getMinInArea_1();
     //test_getMinInArea_2();
-    test_sortByDistances();
+    //test_sortByDistances();
+    test_getNSpecialElement();
 }
 
 int main() {
