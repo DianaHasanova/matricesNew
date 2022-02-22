@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <math.h>
+#include <stdlib.h>
 
 /*
 void test_swapRows() {
@@ -705,11 +706,55 @@ void test_sortByDistances() {
 
 
 //10
-int cmp_long_long(const void *pa, const void *pb) {}
+int cmp_long_long(const void *pa, const void *pb) {
+    long long arg1 = *(long long *) pa;
+    long long arg2 = *(long long *) pb;
+    if (arg1 < arg2)
+        return -1;
+    else if (arg1 > arg2)
+        return 1;
+    else
+        return 0;
+}
 
-int countNUnique(long long *a, int n) {}
+int countNUnique(long long *a, int n) {
+    int countUnique = 1;
+    long long thisElement = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] != thisElement) {
+            thisElement = a[i];
+            countUnique++;
+        }
+    return countUnique;
+}
 
-int countEqClassesByRowsSum(matrix m) {}
+int countEqClassesByRowsSum(matrix m) {
+    long long *a = (long long *) calloc(m.nRows, sizeof(long long));
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = 0; j < m.nCols; j++)
+            a[i] += m.values[i][j];
+    qsort(a, m.nRows, sizeof(long long), cmp_long_long);
+    int countUnique = countNUnique(a, m.nRows);
+    free(a);
+    return countUnique;
+}
+
+void test_countEqClassesByRowsSum() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    7, 1,
+                    2, 7,
+                    5, 4,
+                    4, 3,
+                    1, 6,
+                    8, 0
+            }, 6, 2
+    );
+
+    assert(countEqClassesByRowsSum(m) == 3);
+
+    freeMemMatrix(m);
+}
 
 
 //11
@@ -799,6 +844,17 @@ void test_swapPenultimateRow_2() {
 }
 
 
+//13
+bool isNonDescendingSorted(int *a, int n) {
+
+}
+
+bool hasAllNonDescendingRows(matrix m) {
+
+}
+
+int countNonDescendingRowsMatrices(matrix *ms, int n) {}
+
 void test() {
     //test_swapsRowsWhithMinAndMaxElement();
     //test_sortsRowsByMinElement();
@@ -815,8 +871,9 @@ void test() {
     //test_getMinInArea_2();
     //test_sortByDistances();
     // test_getNSpecialElement();
-    test_swapPenultimateRow_1();
-    test_swapPenultimateRow_2();
+    // test_swapPenultimateRow_1();
+    // test_swapPenultimateRow_2();
+    test_countEqClassesByRowsSum();
 }
 
 int main() {
